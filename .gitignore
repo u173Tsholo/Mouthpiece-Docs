@@ -1,0 +1,18 @@
+# Linux
+*~
+
+# MacOS
+.DS_Store/
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Environment variables file
+.env
+.env.test
+
+# Logs
+*.log
