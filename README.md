@@ -23,7 +23,7 @@ In order to make requests you will be required to follow [RESTful](https://restf
     5.6		[Update Password](#update-password)  
     5.7		[Update Email](#update-email)  
     5.8		[Update Theme](#update-theme)  
-    5.9		[Update Mode](#update-mode)  
+    5.9		[Update Listening Mode](#update-listening-mode)  
     5.10	[Delete User](#delete-user)  
 6. [Notifications](#notifications)  
 7. [Neural Network](#neural-network)  
@@ -33,17 +33,18 @@ In order to make requests you will be required to follow [RESTful](https://restf
 
 ## User Endpoints
 
-| Method		| Path															| Used for								|
-|-----------|-----------------------------------|-------------------------|
-| `POST`		| `/api/users`      								| Create new user					|
-| `GET`			| `/api/users/{id}` 								| Get user								|
-| `DELETE`	| `/api/users/{id}` 								| Delete user							|
-| `GET`			| `/api/users/{id}/templates` 			| Get user's templates		|
-| `GET`			| `/api/users/{id}/templates/{id}`	| Get user's template			|
-| `PUT`			| `/api/users/{id}/username`				| Update user's username	|
-| `PUT`			| `/api/users/{id}/password` 				| Update user's password	|
-| `PUT`			| `/api/users/{id}/theme`						| Update user's theme			|
-| `PUT`			| `/api/users/{id}/formant`					| Update user's formant		|
+| Method		| Path																				| Used for																|
+|-----------|---------------------------------------------|-----------------------------------------|
+| `POST`		| `/api/users`																| Create new user													|
+| `GET`			| `/api/users/authenticate`										| Authenticate user												|
+| `GET`			| `/api/users/:userid`												| Get user																|
+| `DELETE`	| `/api/users/:userid` 												| Delete user															|
+| `GET`			| `/api/users/:userid/templates`							| Get user's templates										|
+| `GET`			| `/api/users/:userid/templates/:templateid`	| Get user's template											|
+| `PUT`			| `/api/users/:userid/password` 							| Update user's password									|
+| `PUT`			| `/api/users/:userid/username`								| Update user's username									|
+| `PUT`			| `/api/users/:userid/theme`									| Update user's theme preference					|
+| `PUT`			| `/api/users/:userid/mode`										| Update user's listening mode preference	|
 
 ## Notifications Endpoints
 
@@ -127,8 +128,6 @@ This endpoint will return the `id` of the newly created user, as well as a `toke
 
 ##### Response Status Codes
 
->**NOTE:** This endpoint does not adhere to the global response codes provided above, for this endpoint a status code of `200` will never be returned but rather it will return `201` along with a body if the request is valid.
-
 | Status Code | Description																														  |
 |-------------|-------------------------------------------------------------------------|
 | `201`       | User created																													  |
@@ -178,7 +177,7 @@ This endpoint retrieves a specific users details.
 
 ##### HTTP Request
 
-`GET /api/users/{id}`
+`GET /api/users/:userid`
 
 ##### Request Body
 
@@ -209,13 +208,43 @@ The following fields must be provided in the request body:
 | `403`       | Invalid `token`																                        |
 | `404`       |	Invalid user `id`																	                    |
 
+## Delete User
+
+This endpoint is used to delete a user's account.
+
+##### HTTP Request
+
+`DELETE /api/users/:userid`
+
+##### Request Body
+
+The request body requires the following fields:
+
+```json
+{
+	"token": "4dffdfd0f9d0f9df0"
+}
+```
+
+##### Response Body
+
+This endpoint will not return any fields in the response body.
+
+##### Response Status Codes
+
+| Status Code | Description																														  |
+|-------------|-------------------------------------------------------------------------|
+| `204`				| User deleted																													  |
+| `403`       | Invalid `token`																                          |
+| `404`       | Invalid user `id`																											  |
+
 ## Get Templates
 
 This endpoint retrieves all of a user's templates.
 
 ##### HTTP Request
 
-`GET /api/users/{id}/templates`
+`GET /api/users/:userid/templates`
 
 ##### Request Body
 
@@ -262,7 +291,7 @@ This endpoint retrieves a specific template of a user.
 
 ##### HTTP Request
 
-`GET /api/users/{id}/templates/{id}`
+`GET /api/users/:userid/templates/:templateid`
 
 ##### Request Body
 
@@ -301,7 +330,7 @@ This endpoint updates a user's password.
 
 ##### HTTP Request
 
-`PUT /api/users/{id}/password`
+`PUT /api/users/:userid/password`
 
 ##### Request Body
 
@@ -326,13 +355,13 @@ This endpoint will not return a body.
 | `403`       | Invalid `token`																                          |
 | `404`       |	Invalid user `id`																	                      |
 
-## Update Email
+## Update Username
 
-This endpoint updates a user's email address.
+This endpoint updates a user's username.
 
 ##### HTTP Request
 
-`PUT /api/users/{id}/username`
+`PUT /api/users/:userid/username`
 
 ##### Request Body
 
@@ -359,11 +388,11 @@ This endpoint will not return any fields in the response body.
 
 ## Update Theme
 
-This endpoint updates a user's theme.
+This endpoint updates a user's theme preference.
 
 ##### HTTP Request
 
-`PUT /api/users/{id}/theme`
+`PUT /api/users/:userid/theme`
 
 ##### Request Body
 
@@ -388,13 +417,13 @@ This endpoint will not return any fields in the response body.
 | `403`       | Invalid `token`												                          |
 | `404`       | Invalid user `id` or `theme`																		|
 
-## Update Voice Mode
+## Update Listening Mode
 
-This endpoint updates a user's voice mode.
+This endpoint updates a user's listening mode preference.
 
 ##### HTTP Request
 
-`PUT /api/users/{id}/mode`
+`PUT /api/users/:userid/mode`
 
 ##### Request Body
 
@@ -419,35 +448,6 @@ This endpoint will not return any fields in the response body.
 | `403`       | Invalid `token`																                            |
 | `404`       | Invalid user `id` or `mode`																			  |
 
-## Delete User
-
-This endpoint is used to delete a user's account.
-
-##### HTTP Request
-
-`DELETE /api/users/{id}`
-
-##### Request Body
-
-The request body requires the following fields:
-
-```json
-{
-	"token": "4dffdfd0f9d0f9df0"
-}
-```
-
-##### Response Body
-
-This endpoint will not return any fields in the response body.
-
-##### Response Status Codes
-
-| Status Code | Description																														  |
-|-------------|-------------------------------------------------------------------------|
-| `204`				| User deleted																													  |
-| `403`       | Invalid `token`																                          |
-| `404`       | Invalid user `id`																											  |
 
 # Notifications
 
