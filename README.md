@@ -6,28 +6,28 @@ In order to make requests you will be required to follow [RESTful](https://restf
 
 # Table of Contents
 
-1. [Endpoints](#endpoints)  
-		1.1		[User Endpoints](#user-endpoints)  
-		1.2		[Notifications Endpoints](#notifications-endpoints)  
-		1.3		[Neural Network Endpoints](#neural-network-endpoints)  
-		1.4		[Template Sharing Endpoints](#template-sharing-endpoints)  
+1. [Endpoints](#endpoints)
+		1.1		[User Endpoints](#user-endpoints)
+		1.2		[Notifications Endpoints](#notifications-endpoints)
+		1.3		[Neural Network Endpoints](#neural-network-endpoints)
+		1.4		[Template Sharing Endpoints](#template-sharing-endpoints)
 2. [Requesting New Endpoints](#requesting-new-endpoints)
 3. [Response Codes](#response-codes)
 4. [Authorization](#authorization)
-5. [Users](#users)  
-		5.1		[Create User](#create-user)  
-		5.2		[Authenticate](#authenticate)  
-		5.3		[Get User](#get-user)  
-    5.4		[Get Templates](#get-templates)  
-    5.5		[Get Template](#get-template)  
-    5.6		[Update Password](#update-password)  
-    5.7		[Update Email](#update-email)  
-    5.8		[Update Theme](#update-theme)  
-    5.9		[Update Mode](#update-mode)  
-    5.10	[Delete User](#delete-user)  
-6. [Notifications](#notifications)  
-7. [Neural Network](#neural-network)  
-8. [Template Sharing](#template-sharing)  
+5. [Users](#users)
+		5.1		[Create User](#create-user)
+		5.2		[Authenticate](#authenticate)
+		5.3		[Get User](#get-user)
+    5.4		[Get Templates](#get-templates)
+    5.5		[Get Template](#get-template)
+    5.6		[Update Password](#update-password)
+    5.7		[Update Email](#update-email)
+    5.8		[Update Theme](#update-theme)
+    5.9		[Update Mode](#update-mode)
+    5.10	[Delete User](#delete-user)
+6. [Notifications](#notifications)
+7. [Neural Network](#neural-network)
+8. [Template Sharing](#template-sharing)
 
 # Endpoints
 
@@ -85,9 +85,9 @@ There are a number of global response codes that apply to all requests made and 
 >**NOTE:** A response will only return a body if a status code of `200` is returned.
 
 # Authorization
-Each group will be provided with a [Bearer Authentication](https://dzone.com/articles/four-most-used-rest-api-authentication-methods) token that will be used for authorization purposes. 
-Everytime a request is made to the API, this token must be provided or else the API will reject the request immediately and will return a `401` status code. 
-The token should be sent using the *Authorization* header in the request. 
+Each group will be provided with a [Bearer Authentication](https://dzone.com/articles/four-most-used-rest-api-authentication-methods) token that will be used for authorization purposes.
+Everytime a request is made to the API, this token must be provided or else the API will reject the request immediately and will return a `401` status code.
+The token should be sent using the *Authorization* header in the request.
 An example of how this token should be sent is given below:
 
 `Authorization: Bearer <token>`
@@ -116,7 +116,7 @@ The request body requires the following fields:
 
 ##### Response Body
 
-This endpoint will return the id of the newly created user, as well as a token which must be used for all further requests.
+This endpoint will return the `id` of the newly created user, as well as a `token` which must be used for all further requests.
 
 ```json
 {
@@ -129,15 +129,15 @@ This endpoint will return the id of the newly created user, as well as a token w
 
 >**NOTE:** This endpoint does not adhere to the global response codes provided above, for this endpoint a status code of `200` will never be returned but rather it will return `201` along with a body if the request is valid.
 
-| Status Code | Description																														|
-|-------------|-----------------------------------------------------------------------|
-| `201`       | User created																													|
-| `403`       | Invalid username (must be a valid email address)											|
-| `409`       | User already exists																										|
+| Status Code | Description																														  |
+|-------------|-------------------------------------------------------------------------|
+| `201`       | User created																													  |
+| `403`       | Invalid `username` (must be a valid email address)											|
+| `409`       | User already exists																										  |
 
 ## Authenticate
 
-This endpoint is used to authenticate a user based off of their password.
+This endpoint is used to authenticate a user based off of their `password`.
 
 ##### HTTP Request
 
@@ -156,7 +156,7 @@ The following fields must be provided in the request body:
 
 ##### Response Body
 
-This endpoint will return the id of the user, as well as a token which must be used for all further requests.
+This endpoint will return the `id` of the user, as well as a `token` which must be used for all further requests.
 
 ```json
 {
@@ -167,10 +167,10 @@ This endpoint will return the id of the user, as well as a token which must be u
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `200`       | User id returned																											|
-| `404`       | Incorrect username or password										                    |
+| Status Code | Description											                                          |
+|-------------|---------------------------------------------------------------------------|
+| `200`       | User `id` returned																											  |
+| `404`       | Incorrect `username` or `password`										                    |
 
 ## Get User
 
@@ -203,11 +203,11 @@ The following fields must be provided in the request body:
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
+| Status Code | Description										                                        |
 |-------------|-----------------------------------------------------------------------|
-| `200`       | User returned																													|
-| `403`       | Incorrect password																                    |
-| `404`       |	Incorrect user id																	                    |
+| `200`       | User returned																												  |
+| `403`       | Invalid `token`																                        |
+| `404`       |	Invalid user `id`																	                    |
 
 ## Get Templates
 
@@ -229,8 +229,8 @@ The following fields must be provided in the request body:
 
 ##### Response Body
 
-The response will return an array of templates, each template will have an id, 
-a boolean indicating whether or not it has been shared, 
+The response will return an array of templates, each template will have an `id `,
+a boolean indicating whether or not it has been shared,
 as well as an array of urls for each formant representation of the template:
 
 ```json
@@ -250,11 +250,11 @@ as well as an array of urls for each formant representation of the template:
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `200`       | User templates returned																								|
-| `403`       | Incorrect password																                    |
-| `404`       |	Incorrect user id																	                    |
+| Status Code | Description									                                        |
+|-------------|---------------------------------------------------------------------|
+| `200`       | User `templates` returned																						|
+| `403`       | Invalid `token`																                      |
+| `404`       |	Invalid user `id`															                      |
 
 ## Get Template
 
@@ -289,11 +289,11 @@ The following fields must be provided in the request body:
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `200`       | User template returned																								|
-| `403`       | Incorrect password																                    |
-| `404`       |	Incorrect user id or template id									                    |
+| Status Code | Description											                                            |
+|-------------|-----------------------------------------------------------------------------|
+| `200`       | User `template` returned																								    |
+| `403`       | Invalid `token`																                              |
+| `404`       |	Invalid user `id` or template `id`									                        |
 
 ## Update Password
 
@@ -320,11 +320,11 @@ This endpoint will not return a body.
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `204`				| Password Changed																											|
-| `403`       | Incorrect password																                    |
-| `404`       |	Incorrect user id																	                    |
+| Status Code | Description											                                        |
+|-------------|-------------------------------------------------------------------------|
+| `204`				| Password changed																											  |
+| `403`       | Invalid `token`																                          |
+| `404`       |	Invalid user `id`																	                      |
 
 ## Update Email
 
@@ -351,11 +351,11 @@ This endpoint will not return any fields in the response body.
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `204`				| Username Changed																											|
-| `403`       | Incorrect password																                    |
-| `404`       | Incorrect user id or invalid username (must be a valid email address)	|
+| Status Code | Description							                                        |
+|-------------|-----------------------------------------------------------------|
+| `204`				| Username changed																							  |
+| `403`       | Invalid `token`												                          |
+| `404`       | Invalid user `id` or `username` (must be a valid email address)	|
 
 ## Update Theme
 
@@ -382,11 +382,11 @@ This endpoint will not return any fields in the response body.
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `204`				| Theme Changed																													|
-| `403`       | Incorrect password																                    |
-| `404`       | Incorrect user id or invalid theme																		|
+| Status Code | Description							                                        |
+|-------------|-----------------------------------------------------------------|
+| `204`				| Theme changed																									  |
+| `403`       | Invalid `token`												                          |
+| `404`       | Invalid user `id` or `theme`																		|
 
 ## Update Voice Mode
 
@@ -413,11 +413,11 @@ This endpoint will not return any fields in the response body.
 
 ##### Response Status Codes
 
-| Status Code | Description											                                      |
-|-------------|-----------------------------------------------------------------------|
-| `204`				| Listening mode changed																								|
-| `403`       | Incorrect password																                    |
-| `404`       | Incorrect user id or invalid mode																			|
+| Status Code | Description											                                          |
+|-------------|---------------------------------------------------------------------------|
+| `204`				| Listening mode changed																								    |
+| `403`       | Invalid `token`																                            |
+| `404`       | Invalid user `id` or `mode`																			  |
 
 ## Delete User
 
@@ -443,11 +443,11 @@ This endpoint will not return any fields in the response body.
 
 ##### Response Status Codes
 
-| Status Code | Description																														|
-|-------------|-----------------------------------------------------------------------|
-| `204`				| User deleted																													|
-| `403`       | Incorrect password																                    |
-| `404`       | Incorrect user id																											|
+| Status Code | Description																														  |
+|-------------|-------------------------------------------------------------------------|
+| `204`				| User deleted																													  |
+| `403`       | Invalid `token`																                          |
+| `404`       | Invalid user `id`																											  |
 
 # Notifications
 
