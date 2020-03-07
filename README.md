@@ -229,7 +229,7 @@ The following fields must be provided in the request body:
 
 ##### Response Body
 
-The response will return an array of templates, each template will have an `id `,
+The response will return an array of templates, each template will have an `id`,
 a boolean indicating whether or not it has been shared,
 as well as an array of urls for each formant representation of the template:
 
