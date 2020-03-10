@@ -39,8 +39,6 @@ In order to make requests you will be required to follow [RESTful](https://restf
 | `GET`			| `/api/users/authenticate`										| Authenticate user												|
 | `GET`			| `/api/users/:userid`												| Get user																|
 | `DELETE`	| `/api/users/:userid` 												| Delete user															|
-| `GET`			| `/api/users/:userid/templates`							| Get user's templates										|
-| `GET`			| `/api/users/:userid/templates/:templateid`	| Get user's template											|
 | `PUT`			| `/api/users/:userid/password` 							| Update user's password									|
 | `PUT`			| `/api/users/:userid/username`								| Update user's username									|
 | `PUT`			| `/api/users/:userid/theme`									| Update user's theme preference					|
@@ -61,8 +59,9 @@ In order to make requests you will be required to follow [RESTful](https://restf
 ## Template Sharing Endpoints
 
 | Method		| Path															| Used for								|
-|-----------|-----------------------------------|-------------------------|
-| `-`				| `-`								 								| -												|
+|-----------|---------------------------------------------|-----------------------------------------|
+| `GET`			| `/api/users/:userid/templates`							| Get user's templates										|
+| `GET`			| `/api/users/:userid/templates/:templateid`	| Get user's template											|
 
 # Requesting New Endpoints
 
@@ -238,92 +237,6 @@ This endpoint will not return any fields in the response body.
 | `403`       | Invalid `token`																                          |
 | `404`       | Invalid user `id`																											  |
 
-## Get Templates
-
-This endpoint retrieves all of a user's templates.
-
-##### HTTP Request
-
-`GET /api/users/:userid/templates`
-
-##### Request Body
-
-The following fields must be provided in the request body:
-
-```json
-{
-	"token": "4dffdfd0f9d0f9df0"
-}
-```
-
-##### Response Body
-
-The response will return an array of templates, each template will have an `id`,
-a boolean indicating whether or not it has been shared,
-as well as an array of urls for each formant representation of the template:
-
-```json
-{
-	"templates": [
-		{
-			"id": 54321,
-			"shared": true,
-			"urls": [
-				"https://www.image1.com",
-				"https://www.image2.com"
-			]
-		}
-	]
-}
-```
-
-##### Response Status Codes
-
-| Status Code | Description									                                        |
-|-------------|---------------------------------------------------------------------|
-| `200`       | User `templates` returned																						|
-| `403`       | Invalid `token`																                      |
-| `404`       |	Invalid user `id`															                      |
-
-## Get Template
-
-This endpoint retrieves a specific template of a user.
-
-##### HTTP Request
-
-`GET /api/users/:userid/templates/:templateid`
-
-##### Request Body
-
-The following fields must be provided in the request body:
-
-```json
-{
-	"token": "4dffdfd0f9d0f9df0"
-}
-```
-
-##### Response Body
-
-```json
-{
-	"id": 54321,
-	"shared": true,
-	"urls": [
-		"https://www.image1.com",
-		"https://www.image2.com"
-	]
-}
-```
-
-##### Response Status Codes
-
-| Status Code | Description											                                            |
-|-------------|-----------------------------------------------------------------------------|
-| `200`       | User `template` returned																								    |
-| `403`       | Invalid `token`																                              |
-| `404`       |	Invalid user `id` or template `id`									                        |
-
 ## Update Password
 
 This endpoint updates a user's password.
@@ -459,4 +372,132 @@ Under Construction
 
 # Template Sharing
 
-Under Construction
+## Get Templates
+
+This endpoint retrieves all of a user's templates.
+
+##### HTTP Request
+
+`GET /api/users/:userid/templates`
+
+##### Request Body
+
+The following fields must be provided in the request body:
+
+```json
+{
+	"token": "4dffdfd0f9d0f9df0"
+}
+```
+
+##### Response Body
+
+The response will return an array of templates, each template will have an `id`,
+a boolean indicating whether or not it has been shared,
+as well as an array of urls for each formant representation of the template:
+
+```json
+{
+	"templates": [
+		{
+			"id": 54321,
+			"shared": true,
+			"urls": [
+				"https://www.image1.com",
+				"https://www.image2.com"
+			]
+		}
+	]
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description									                                        |
+|-------------|---------------------------------------------------------------------|
+| `200`       | User `templates` returned																						|
+| `403`       | Invalid `token`																                      |
+| `404`       |	Invalid user `id`															                      |
+
+## Get Template
+
+This endpoint retrieves a specific template of a user.
+
+##### HTTP Request
+
+`GET /api/users/:userid/templates/:templateid`
+
+##### Request Body
+
+The following fields must be provided in the request body:
+
+```json
+{
+	"token": "4dffdfd0f9d0f9df0"
+}
+```
+
+##### Response Body
+
+```json
+{
+	"id": 54321,
+	"shared": true,
+	"urls": [
+		"https://www.formant1image.com",
+		"https://www.formant2image.com",
+		"https://www.volume1image.com"
+		"https://www.volume2image.com"
+	]
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description											                                            |
+|-------------|-----------------------------------------------------------------------------|
+| `200`       | User `template` returned																								    |
+| `403`       | Invalid `token`																                              |
+| `404`       |	Invalid user `id` or template `id`									                        |
+
+## Create Template
+
+This endpoint is used to create mouth template for a user
+
+##### HTTP Request
+
+`POST /api/users/:userid/templates`
+
+##### Request Body
+
+The following fields must be provided in the request body. 
+The token required is the token which was retrieved when authenticating the user and is not linked to the actual template.
+Note that the images will be sent encoded with base64, the full length of an image is not demonstrated below only a substring of how it may look is shown.
+
+```json
+{
+	"token": "4dffdfd0f9d0f9df0",
+	"shared": true,
+	"images": [
+		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj",
+		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj",
+		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj",
+		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj"
+	]
+}
+```
+
+##### Response Body
+
+```json
+{
+	"id": 54321
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description																														  |
+|-------------|-------------------------------------------------------------------------|
+| `201`       | Template created																												|
+| `403`       | Invalid image provided in `images` or invalid `shared` value						|
