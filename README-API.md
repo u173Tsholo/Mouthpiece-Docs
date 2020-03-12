@@ -24,6 +24,11 @@ In order to make requests you will be required to follow [RESTful](https://restf
     5.7		[Update Listening Mode](#update-listening-mode)  
     5.8   [Delete User](#delete-user)  
 6. [Notifications](#notifications)  
+    6.1		[Add Notification](#add-notification)   
+    6.1		[Get Notification](#get-notification)   
+    6.1		[Get All Notifications](#get-all-notifications)   
+    6.1		[Update Notification](#update-notification)   
+    6.1		[Delete Notification](#delete-notification) 
 7. [Neural Network](#neural-network)  
 8. [Template Sharing](#template-sharing)  
     8.1   [Create Template](#create-template)  
@@ -385,7 +390,134 @@ This endpoint will not return any fields in the response body.
 
 # Notifications
 
-Under Construction
+## Add Notification
+
+This endpoint adds a notification.
+
+##### HTTP Request
+
+`POST /api/notifications`
+
+##### Request Body
+
+The notification message is required in the request body.
+
+```json
+{
+	"message": "We have just released a new version of the App!"
+}
+```
+
+##### Response Body
+
+```json
+{
+	"notificationid": "53421"
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description							                                          |
+|-------------|-------------------------------------------------------------------|
+| `200`		  | Notification successfully added																		    |									               
+
+## Get Notification
+
+This endpoint returns a specific notification.
+
+##### HTTP Request
+
+`GET /api/notifications/:notificationid`
+
+##### Request Body
+
+No request body is needed.
+
+##### Response Body
+
+```json
+{
+	"message": "We have just released a new version of the App!"
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description							                              |
+|-------------|-------------------------------------------------------------------|
+| `200`		  | Notification successfully returned								  |
+| `404`       | Invalid `:templateid`                                             |
+
+## Get All Notifications
+
+This endpoint retrieves all notifications.
+
+##### HTTP Request
+
+`GET /api/notifications`
+
+##### Request Body
+
+No request body needed.
+
+##### Response Body
+
+```json
+{
+	"messages": ["message 1", "message 2", "message 3"]
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description							                                          |
+|-------------|-------------------------------------------------------------------|
+| `200`		  | Notifications successfully returned			
+
+## Update Notification
+
+This endpoint updates the specified notification.
+
+##### HTTP Request
+
+`PUT /api/notifications/:notificationid`
+
+##### Request Body
+
+No request body needed.
+
+##### Response Body
+
+This endpoint will not return any fields in the response body.
+
+##### Response Status Codes
+
+| Status Code | Description							                              |
+|-------------|-------------------------------------------------------------------|
+| `204`		  | Notification successfully returned								  |
+| `404`       | Invalid `:templateid`                                             |
+
+## Delete Notification
+
+This endpoint deletes the specified notification
+
+##### HTTP Request
+
+`DELETE /api/notifications/:notificationid`
+
+##### Request Body
+
+No request body needed.
+
+##### Response Body
+
+This endpoint will not return any fields in the response body.
+
+| Status Code | Description							                              |
+|-------------|-------------------------------------------------------------------|
+| `204`		  | Notification successfully returned								  |
+| `404`       | Invalid `:templateid`                                             |
 
 # Neural Network
 
@@ -515,7 +647,7 @@ The following fields must be provided in the request body:
 	"urls": [
 		"https://www.formant1image.com",
 		"https://www.formant2image.com",
-		"https://www.volume1image.com"
+		"https://www.volume1image.com",
 		"https://www.volume2image.com"
 	]
 }
