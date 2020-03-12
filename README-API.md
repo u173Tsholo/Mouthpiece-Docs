@@ -412,7 +412,7 @@ The notification message is required in the request body.
 
 ```json
 {
-	"notificationid": "53421"
+	"id": "53421"
 }
 ```
 
@@ -447,7 +447,7 @@ No request body is needed.
 | Status Code | Description							                              |
 |-------------|-------------------------------------------------------------------|
 | `200`		  | Notification successfully returned								  |
-| `404`       | Invalid `:templateid`                                             |
+| `404`       | Invalid `:notificationid`                                             |
 
 ## Get All Notifications
 
@@ -496,7 +496,7 @@ This endpoint will not return any fields in the response body.
 | Status Code | Description							                              |
 |-------------|-------------------------------------------------------------------|
 | `204`		  | Notification successfully returned								  |
-| `404`       | Invalid `:templateid`                                             |
+| `404`       | Invalid `:notificationid`                                             |
 
 ## Delete Notification
 
@@ -517,7 +517,7 @@ This endpoint will not return any fields in the response body.
 | Status Code | Description							                              |
 |-------------|-------------------------------------------------------------------|
 | `204`		  | Notification successfully returned								  |
-| `404`       | Invalid `:templateid`                                             |
+| `404`       | Invalid `:notificationid`                                             |
 
 # Neural Network
 
