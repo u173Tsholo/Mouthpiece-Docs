@@ -18,17 +18,20 @@ In order to make requests you will be required to follow [RESTful](https://restf
 		5.1		[Create User](#create-user)  
 		5.2		[Authenticate](#authenticate)  
 		5.3		[Get User](#get-user)  
-    5.4		[Get Templates](#get-templates)  
-    5.5		[Get Template](#get-template)  
-    5.6		[Update Password](#update-password)  
-    5.7		[Update Email](#update-email)  
-    5.8		[Update Theme](#update-theme)  
-    5.9		[Update Listening Mode](#update-listening-mode)  
-    5.10	[Delete User](#delete-user)  
+    5.4		[Update Password](#update-password)  
+    5.5		[Update Email](#update-email)  
+    5.6		[Update Theme](#update-theme)  
+    5.7		[Update Listening Mode](#update-listening-mode)  
+    5.8   [Delete User](#delete-user)  
 6. [Notifications](#notifications)  
 7. [Neural Network](#neural-network)  
 8. [Template Sharing](#template-sharing)  
-
+    8.1   [Create Template](#create-template)  
+    8.2   [Get Templates](#get-templates)  
+    8.3   [Get Template](#get-template)  
+    8.4   [Share Template](#share-template)  
+    8.5   [Delete Template](#delete-template)  
+    
 # Endpoints
 
 ## User Endpoints
@@ -58,10 +61,13 @@ In order to make requests you will be required to follow [RESTful](https://restf
 
 ## Template Sharing Endpoints
 
-| Method		| Path															| Used for								|
-|-----------|---------------------------------------------|-----------------------------------------|
-| `GET`			| `/api/users/:userid/templates`							| Get user's templates										|
-| `GET`			| `/api/users/:userid/templates/:templateid`	| Get user's template											|
+| Method		| Path															                | Used for			                          					|
+|-----------|---------------------------------------------------|---------------------------------------------------|
+| `POST`    | `/api/users/:userid/templates`                    | Create user's template                            |
+| `GET`			| `/api/users/:userid/templates`							      | Get user's templates				          						|
+| `GET`			| `/api/users/:userid/templates/:templateid`	      | Get user's template	          										|
+| `PUT`			| `/api/users/:userid/templates/:templateid/shared`	| Share/unshare user's template											|
+| `DELETE`  | `/api/users/:userid/templates/:templateid`      	| Delete user's template								      			|
 
 # Requesting New Endpoints
 
@@ -121,7 +127,7 @@ This endpoint will return the `id` of the newly created user, as well as a `toke
 ```json
 {
 	"id": 1234,
-	"token": "4dffdfd0f9d0f9df0"
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
@@ -132,6 +138,8 @@ This endpoint will return the `id` of the newly created user, as well as a `toke
 | `201`       | User created																													  |
 | `403`       | Invalid `username` (must be a valid email address)											|
 | `409`       | User already exists																										  |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Authenticate
 
@@ -159,7 +167,7 @@ This endpoint will return the `id` of the user, as well as a `token` which must 
 ```json
 {
 	"id": 12345,
-	"token": "4dffdfd0f9d0f9df0"
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
@@ -169,6 +177,8 @@ This endpoint will return the `id` of the user, as well as a `token` which must 
 |-------------|---------------------------------------------------------------------------|
 | `200`       | User `id` returned																											  |
 | `404`       | Incorrect `username` or `password`										                    |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Get User
 
@@ -184,7 +194,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0"
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
@@ -205,7 +215,9 @@ The following fields must be provided in the request body:
 |-------------|-----------------------------------------------------------------------|
 | `200`       | User returned																												  |
 | `403`       | Invalid `token`																                        |
-| `404`       |	Invalid user `id`																	                    |
+| `404`       |	Invalid `:userid`																	                    |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Delete User
 
@@ -221,7 +233,7 @@ The request body requires the following fields:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0"
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
@@ -235,7 +247,9 @@ This endpoint will not return any fields in the response body.
 |-------------|-------------------------------------------------------------------------|
 | `204`				| User deleted																													  |
 | `403`       | Invalid `token`																                          |
-| `404`       | Invalid user `id`																											  |
+| `404`       | Invalid `:userid`																											  |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Update Password
 
@@ -251,7 +265,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0",
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1",
 	"password": "IEJy4axvQKi3CcKQZdaG3YWIc9EvILi0"
 }
 ```
@@ -266,7 +280,9 @@ This endpoint will not return a body.
 |-------------|-------------------------------------------------------------------------|
 | `204`				| Password changed																											  |
 | `403`       | Invalid `token`																                          |
-| `404`       |	Invalid user `id`																	                      |
+| `404`       |	Invalid `:userid`																	                      |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Update Username
 
@@ -282,7 +298,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0",
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1",
 	"username": "john.adam@doe.com"
 }
 ```
@@ -297,7 +313,9 @@ This endpoint will not return any fields in the response body.
 |-------------|-----------------------------------------------------------------|
 | `204`				| Username changed																							  |
 | `403`       | Invalid `token`												                          |
-| `404`       | Invalid user `id` or `username` (must be a valid email address)	|
+| `404`       | Invalid `:userid` or `username` (must be a valid email address)	|
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Update Theme
 
@@ -313,7 +331,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0",
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1",
 	"theme": "dark"
 }
 ```
@@ -328,7 +346,9 @@ This endpoint will not return any fields in the response body.
 |-------------|-----------------------------------------------------------------|
 | `204`				| Theme changed																									  |
 | `403`       | Invalid `token`												                          |
-| `404`       | Invalid user `id` or `theme`																		|
+| `404`       | Invalid `:userid` or `theme`																		|
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Update Listening Mode
 
@@ -344,7 +364,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0",
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1",
 	"mode": "formant"
 }
 ```
@@ -355,12 +375,13 @@ This endpoint will not return any fields in the response body.
 
 ##### Response Status Codes
 
-| Status Code | Description											                                          |
-|-------------|---------------------------------------------------------------------------|
-| `204`				| Listening mode changed																								    |
-| `403`       | Invalid `token`																                            |
-| `404`       | Invalid user `id` or `mode`																			  |
+| Status Code | Description							                                          |
+|-------------|-------------------------------------------------------------------|
+| `204`				| Listening mode changed																				    |
+| `403`       | Invalid `token`												                            |
+| `404`       | Invalid `:userid` or `mode`																			  |
 
+[Back to Table of Contents](#table-of-contents)
 
 # Notifications
 
@@ -371,6 +392,52 @@ Under Construction
 Under Construction
 
 # Template Sharing
+
+## Create Template
+
+This endpoint is used to create mouth template for a user.
+
+##### HTTP Request
+
+`POST /api/users/:userid/templates`
+
+##### Request Body
+
+The following fields must be provided in the request body. 
+The token required is the token which was retrieved when authenticating
+the user and is not linked to the actual template. Note that the images
+sent will be Base64 encoded. The full length of an image is not demonstrated
+below only, a substring of how it may look is shown.
+
+```json
+{
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1",
+	"shared": true,
+	"images": [
+		"aGVsbG8gd29ybGQIxA==",
+		"dGVzdGluZyAxIDIgMw==",
+		"aGVsbG8gZGFya25lc3==",
+		"d2UgY2FuIGRvIHRoaM=="
+	]
+}
+```
+
+##### Response Body
+
+```json
+{
+	"id": 54321
+}
+```
+
+##### Response Status Codes
+
+| Status Code | Description																														  |
+|-------------|-------------------------------------------------------------------------|
+| `201`       | Template created																												|
+| `403`       | Invalid image provided in `images` or invalid `shared` value						|
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Get Templates
 
@@ -386,7 +453,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0"
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
@@ -413,11 +480,13 @@ as well as an array of urls for each formant representation of the template:
 
 ##### Response Status Codes
 
-| Status Code | Description									                                        |
-|-------------|---------------------------------------------------------------------|
-| `200`       | User `templates` returned																						|
-| `403`       | Invalid `token`																                      |
-| `404`       |	Invalid user `id`															                      |
+| Status Code | Description									                                                      |
+|-------------|-----------------------------------------------------------------------------------|
+| `200`       | User `templates` returned															              							|
+| `403`       | Invalid `token`		              														                      |
+| `404`       |	Invalid `:userid` or `:templateid`	       									                      |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Get Template
 
@@ -433,7 +502,7 @@ The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0"
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
@@ -458,46 +527,71 @@ The following fields must be provided in the request body:
 |-------------|-----------------------------------------------------------------------------|
 | `200`       | User `template` returned																								    |
 | `403`       | Invalid `token`																                              |
-| `404`       |	Invalid user `id` or template `id`									                        |
+| `404`       |	Invalid `:userid` or `:templateid`	       									                |
 
-## Create Template
+[Back to Table of Contents](#table-of-contents)
 
-This endpoint is used to create mouth template for a user
+## Share Template
+
+This endpoint either shares or unshares a specific template of a user. If the user's template `shared` field is 
+currently `true` this request will set it to `false` and *vice versa*.
 
 ##### HTTP Request
 
-`POST /api/users/:userid/templates`
+`PUT /api/users/:userid/templates/:templateid`
 
 ##### Request Body
 
-The following fields must be provided in the request body. 
-The token required is the token which was retrieved when authenticating the user and is not linked to the actual template.
-Note that the images will be sent encoded with base64, the full length of an image is not demonstrated below only a substring of how it may look is shown.
+The following fields must be provided in the request body:
 
 ```json
 {
-	"token": "4dffdfd0f9d0f9df0",
-	"shared": true,
-	"images": [
-		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj",
-		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj",
-		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj",
-		"dfkdjfdkfjdkhgfgkfjgkfjkrj99595fgkjfg5u5gSj"
-	]
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
 }
 ```
 
 ##### Response Body
 
-```json
-{
-	"id": 54321
-}
-```
+This endpoint will not return any fields in the response body.
 
 ##### Response Status Codes
 
-| Status Code | Description																														  |
-|-------------|-------------------------------------------------------------------------|
-| `201`       | Template created																												|
-| `403`       | Invalid image provided in `images` or invalid `shared` value						|
+| Status Code | Description											                                                  |
+|-------------|-----------------------------------------------------------------------------------|
+| `204`       | User `template` shared/unshared																								    |
+| `403`       | Invalid `token`	              															                      |
+| `404`       |	Invalid `:userid` or `:templateid`	       									                      |
+
+[Back to Table of Contents](#table-of-contents)
+
+## Delete Template
+
+This endpoint deletes a specific template of a user. 
+
+##### HTTP Request
+
+`DELETE /api/users/:userid/templates/:templateid`
+
+##### Request Body
+
+The following fields must be provided in the request body:
+
+```json
+{
+	"token": "i58b540dae2a49b5f7f752a8b84037fb1"
+}
+```
+
+##### Response Body
+
+This endpoint will not return any fields in the response body.
+
+##### Response Status Codes
+
+| Status Code | Description						                                                            |
+|-------------|-----------------------------------------------------------------------------------|
+| `204`       | User `template` deleted		          																					    |
+| `403`       | Invalid `token`	              															                      |
+| `404`       |	Invalid `:userid` or `:templateid`	       									                      |
+
+[Back to Table of Contents](#table-of-contents)
