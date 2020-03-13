@@ -54,9 +54,13 @@ In order to make requests you will be required to follow [RESTful](https://restf
 
 ## Notifications Endpoints
 
-| Method		| Path															| Used for								|
-|-----------|-----------------------------------|-------------------------|
-| `-`				| `-`								 								| -												|
+| Method		| Path															            | Used for			                          					|
+|-----------|-----------------------------------------------|---------------------------------------------------|
+| `POST`    | `/api/notifications`                          | Create notification                               |
+| `GET`			| `/api/notifications`							            | Get all notifications				          						|
+| `GET`			| `/api/notifications/:notificationid`	        | Get notification	             										|
+| `PUT`			| `/api/notifications/:notificationid`	        | Update notification			          								|
+| `DELETE`  | `/api/notifications/:notificationid`        	| Delete notification							    	      			|
 
 ## Neural Network Endpoints
 
@@ -420,7 +424,9 @@ The notification message is required in the request body.
 
 | Status Code | Description							                                          |
 |-------------|-------------------------------------------------------------------|
-| `200`		  | Notification successfully added																		    |									               
+| `200`		    | Notification successfully added																    |									               
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Get Notification
 
@@ -444,10 +450,12 @@ No request body is needed.
 
 ##### Response Status Codes
 
-| Status Code | Description							                              |
-|-------------|-------------------------------------------------------------------|
-| `200`		  | Notification successfully returned								  |
-| `404`       | Invalid `:notificationid`                                             |
+| Status Code | Description							                            |
+|-------------|-----------------------------------------------------|
+| `200`		    | Notification successfully returned								  |
+| `404`       | Invalid `:notificationid`                           |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Get All Notifications
 
@@ -473,7 +481,9 @@ No request body needed.
 
 | Status Code | Description							                                          |
 |-------------|-------------------------------------------------------------------|
-| `200`		  | Notifications successfully returned			
+| `200`		    | Notifications successfully returned		                            |	
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Update Notification
 
@@ -494,9 +504,11 @@ This endpoint will not return any fields in the response body.
 ##### Response Status Codes
 
 | Status Code | Description							                              |
-|-------------|-------------------------------------------------------------------|
-| `204`		  | Notification successfully returned								  |
-| `404`       | Invalid `:notificationid`                                             |
+|-------------|-------------------------------------------------------|
+| `204`		    | Notification successfully returned		   						  |
+| `404`       | Invalid `:notificationid`                             |
+
+[Back to Table of Contents](#table-of-contents)
 
 ## Delete Notification
 
@@ -514,10 +526,12 @@ No request body needed.
 
 This endpoint will not return any fields in the response body.
 
-| Status Code | Description							                              |
-|-------------|-------------------------------------------------------------------|
-| `204`		  | Notification successfully returned								  |
-| `404`       | Invalid `:notificationid`                                             |
+| Status Code | Description							                            |
+|-------------|-----------------------------------------------------|
+| `204`		    | Notification successfully returned								  |
+| `404`       | Invalid `:notificationid`                           |
+
+[Back to Table of Contents](#table-of-contents)
 
 # Neural Network
 
