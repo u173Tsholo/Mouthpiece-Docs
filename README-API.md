@@ -19,7 +19,7 @@ In order to make requests you will be required to follow [RESTful](https://restf
 		5.2		[Authenticate](#authenticate)  
 		5.3		[Get User](#get-user)  
     5.4		[Update Password](#update-password)  
-    5.5		[Update Email](#update-email)  
+    5.5		[Update Username](#update-username)  
     5.6		[Update Theme](#update-theme)  
     5.7		[Update Listening Mode](#update-listening-mode)  
     5.8   [Delete User](#delete-user)  
